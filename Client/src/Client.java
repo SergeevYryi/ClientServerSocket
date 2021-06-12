@@ -15,16 +15,6 @@ public class Client {
                             socket.getInputStream()));
 
         ) {
-            System.out.println("Connected to server");
-            String reqest = "Samara";
-            System.out.println("Request: " + reqest);
-
-            writer.write(reqest);
-            writer.newLine();
-            writer.flush();
-
-            String response = reader.readLine();
-            System.out.println("Response: " + response);
 
         } catch (IOException e) {
             e.printStackTrace();
