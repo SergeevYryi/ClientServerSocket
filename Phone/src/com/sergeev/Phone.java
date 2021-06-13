@@ -9,10 +9,18 @@ public class Phone {
     private final BufferedReader reader;
     private final BufferedWriter writer;
 
-    public Phone(Socket socket) {
-        this.socket = socket;
-        this.reader = createReader ();
-        this.writer = createWriter ();
+
+    public Phone(String ip, int port) {
+        try {
+            this.socket = new Socket(ip, port);
+            this.reader = createReader ();
+            this.writer = createWriter ();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public Phone(ServerSocket server) {
+
     }
         public void writeLine (String message) {
         try {
@@ -30,18 +38,12 @@ public class Phone {
                 throw new RuntimeException(e);
             }
         }
-    private BufferedReader createReader() {
-        try {
-            return new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private BufferedReader createReader() throws IOException {
+        return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
     }
-    private BufferedWriter createWriter() {
-        try {
-            return new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private BufferedWriter createWriter() throws IOException {
+        return new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
     }
 }
